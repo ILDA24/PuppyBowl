@@ -48,7 +48,7 @@ const addNewPlayer = async (playerObj) => {
     try {
         const response = await fetch(APIURL, {
             method: "POST",
-            body: JSON.stringify({name, image_url, breed, status}),
+            body: JSON.stringify({name, image_url, breed, status, id}),
             Headers: {
                 "Content-Type": "application/json",
             }
@@ -118,6 +118,7 @@ const renderAllPlayers = (playerList) => {
         <h4>${player.name}</h4>
         <img src="${player.image_url}" alt="${player.name}"
         <p>${player.status}</P>
+        <p>${player.id}</p>
         <button class="delete-button" data-id="${player.id}">Delete</button>
         <button class="details-button" data-id="${player.id}">See Details</button>`;
         playerContainer.appendChild(playerElement);
@@ -142,12 +143,13 @@ const renderSinglePlayer = (player) => {
       return;
     }
     // display single player
-    let recipeHTML = `
+    let playerHTML = `
     <div class="single-player-view">
       <div class="players">
         <h4>${player.name}</h4>
         <img src="${player.image_url}" alt="${player.name}">
         <p>${player.status}</p>
+        <p>${player.id}</p>
       </div>
   
       <button class="back-button">Back</button>
@@ -155,7 +157,7 @@ const renderSinglePlayer = (player) => {
     `;
     playersContainer.innerHTML = playerHTML;
     // create back button
-    let backButton = playersContainer.querySelector(".back-button");
+    let backButton = playerContainer.querySelector(".back-button");
     backButton.addEventListener("click", async () => {
       const players = await fetchAllPlayers();
       renderAllPlayers(players);
@@ -163,8 +165,8 @@ const renderSinglePlayer = (player) => {
   };
   
 
-}
-try {
+});
+    try {
 } catch (err) {
   console.error("Uh oh, trouble rendering players!", err);
 }
@@ -190,6 +192,10 @@ const renderNewPlayerForm = () => {
       
           <label for="breed">Breed</label>
           <textarea id="breed" name="breed" placeholder="Breed"></textarea>
+          
+          <label for="id">Id</label>
+          <input type="number" id="id" name="id" placeholder="Id"
+
           <button type="submit">Create</button>
         </form>
         `;
@@ -200,10 +206,11 @@ const renderNewPlayerForm = () => {
           event.preventDefault();
       
           let playerData = {
-            name: form.name.value,
+            name: form.name.valueOf,
             image_url: form.image_url.value,
             breed: form.breed.value,
             status: form.status.value,
+            id: form.id.valueOf,
           };
       
           await createNewPlayer(
@@ -211,15 +218,17 @@ const renderNewPlayerForm = () => {
             playerData.image_url,
             playerData.breed,
             playerData.status,
+            playerData.id,
           );
       
           const player = await fetchAllPlayers();
-          renderAllPlayers(recipes);
+          renderAllPlayers(players);
       
-          form.name.value = "";
+          form.name.valueOf = "";
           form.image_urle.value = "";
           form.breed.value = "";
           form.status.value = "";
+          form.id.valueOf = "";
         });
       };
 

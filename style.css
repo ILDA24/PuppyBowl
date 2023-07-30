@@ -5,8 +5,8 @@
   }
 
   header {
-    background-color: #000;
-    color: #fff;
+    background-color: #b8ca30;
+    color: #4462a2;
     padding: 20px;
     display: flex;
   }
@@ -23,7 +23,7 @@
   }
   
   header nav a {
-    color: #fff;
+    color: #ef7070;
     text-decoration: none;
     padding: 10px;
   }
