@@ -122,7 +122,8 @@ const renderAllPlayers = (playerList) => {
         // create remove button
         let RemoveButton = playerElement.querySelector(".Remove-button");
         RemoveButton.addEventListener("click", (event) => {
-          event.preventDefault();
+          const playerId = event.target.dataset.id
+           event.preventDefault();
           removePlayer(player.id);
         });
         // create detail button to render single recipe
@@ -221,11 +222,11 @@ const renderNewPlayerForm = () => {
           const player = await fetchAllPlayers();
           renderAllPlayers(players);
       
-          form.name.valueOf = "";
+          form.name.value = "";
           form.image_urle.value = "";
           form.breed.value = "";
           form.status.value = "";
-          form.id.valueOf = "";
+          form.id.value`` = "";
         });
       };
 
