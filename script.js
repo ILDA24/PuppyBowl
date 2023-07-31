@@ -204,11 +204,11 @@ const renderNewPlayerForm = () => {
           event.preventDefault();
       
           let playerData = {
-            name: form.name.valueOf,
+            name: form.name.value,
             image_url: form.image_url.value,
             breed: form.breed.value,
             status: form.status.value,
-            id: form.id.valueOf,
+            id: form.id.value,
           };
       
           await createNewPlayer(

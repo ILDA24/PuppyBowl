@@ -5,16 +5,17 @@
   }
 
   header {
-    background-color: #b8ca30;
-    color: #4462a2;
+    background-color: #e7e8e6;
+    color: #394254;
     padding: 20px;
     display: flex;
   }
   
   header h1 {
-    font-size: 2em;
+    font-size: 30px;
     font-weight: 400;
     margin: 0;
+    text-align: center;
   }
   
   header nav {
@@ -76,5 +77,6 @@
   }
   
   img {
-    width: 30vw;
+    max-width: 73px;
+    max-height: 73px;
   }
