@@ -13,7 +13,8 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${2305-FTB-ET-WEB-PT}/p
 const fetchAllPlayers = async () => {
     try {
         const response = await fetch(APIURL);
-        const players = await response.json();
+        const data = await response.json();
+        const players = data.data.players;
         console.log(players);
         return players;
 
@@ -27,15 +28,10 @@ const fetchAllPlayers = async () => {
 const fetchSinglePlayer = async (playerId) => {
     try {
         // fetch single player
-        const response = await fetch(`${APIURL}/${id}`);
-        const playerData = await response.jspn();
-        const playerElement = document.createElement("div");
-
-
-        // render single player
-        playerElement.classList.add("player");
-        playerElement.innerHTML = `<h4>${player.title}</h4>  <p>${player.instructions}</p>`;
-        playersContainer.appendChild(playerElement);
+        const response = await fetch(`${APIURL}/${Id}`);
+        const data = await response.json();
+        const player = data.data.player;
+        return player;
 
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
@@ -48,15 +44,16 @@ const addNewPlayer = async (playerObj) => {
     try {
         const response = await fetch(APIURL, {
             method: "POST",
-            body: JSON.stringify({name, image_url, breed, status, id}),
-            Headers: {
-                "Content-Type": "application/json",
+            headers: {
+              'Content-Type': 'application/json,'
+            },
+            body: json.stringify(playerObj),
             }
-        });
+        );
     
-    const player = await response.json();
-    console.log(player);
-    fetchAllPlayers();
+    const result = await response.json();
+    console.log(result);
+    
 
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
@@ -67,7 +64,7 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
     try {
-        const response = await fetch(`${APIURL}/${id}`, {
+        const response = await fetch(`${APIURL}/${Id}`, {
             method: "DELETE",
         });
         const player = await response.json();
@@ -119,12 +116,12 @@ const renderAllPlayers = (playerList) => {
         <img src="${player.image_url}" alt="${player.name}"
         <p>${player.status}</P>
         <p>${player.id}</p>
-        <button class="delete-button" data-id="${player.id}">Delete</button>
+        <button class="Remove-button" data-id="${player.id}">Remove From Roster</button>
         <button class="details-button" data-id="${player.id}">See Details</button>`;
         playerContainer.appendChild(playerElement);
-        // create delete button
-        let deleteButton = playerElement.querySelector(".delete-button");
-        deleteButton.addEventListener("click", (event) => {
+        // create remove button
+        let RemoveButton = playerElement.querySelector(".Remove-button");
+        RemoveButton.addEventListener("click", (event) => {
           event.preventDefault();
           removePlayer(player.id);
         });
